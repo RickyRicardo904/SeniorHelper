@@ -51,3 +51,9 @@ replay_pid*
 .env
 .env.*
 !.env.example
+
+# Node dependencies
+node_modules/
+
+# npm lockfile
+package-lock.json
