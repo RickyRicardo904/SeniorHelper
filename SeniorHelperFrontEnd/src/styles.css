@@ -2,16 +2,16 @@
   --page-bg: #e3e6ea;
   --card-bg: #ffffff;
   --card-border: #e1e6eb;
-  --accent: #5f8f8a;
+  --accent: #679b96;
   --accent-dark: #507b76;
   --accent-glow: rgba(95, 143, 138, 0.2);
-  --text-strong: #2f3439;
-  --text-muted: #7b858e;
+  --text-strong: #1F2937;
+  --text-muted: #3b3f46;
   --input-bg: #f4f6f8;
   --input-border: #d7dde3;
   --button-secondary-bg: #eef1f4;
   --button-secondary-hover: #e2e7ec;
-  --footer-text: #5b807b;
+  --footer-text: #679b96;
 }
 
 * {
@@ -25,8 +25,8 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  color: #2f3439;
+  font-family: 'Inter', sans-serif;
+  color: #1F2937;
   background: #e3e6ea;
 }
 
