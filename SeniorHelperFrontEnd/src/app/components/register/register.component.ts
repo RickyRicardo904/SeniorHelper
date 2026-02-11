@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,11 @@ export class RegisterComponent {
   errorMessage = '';
   successMessage = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   onSubmit(form: NgForm) {
     this.errorMessage = '';
@@ -42,14 +47,32 @@ export class RegisterComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {
-          this.successMessage = 'Account created. Please sign in.';
+          this.authService
+            .login({ username: this.username.trim(), password: this.password })
+            .pipe(finalize(() => (this.loading = false)))
+            .subscribe({
+              next: (resp) => {
+                this.loading = false;
+                this.authService.saveToken(resp.token, true);
+                this.successMessage = resp.message || 'Signed in successfully.';
+                this.router.navigate(['/home']);
+                this.cdr.detectChanges();
+              },
+              error: () => {
+                this.loading = false;
+                this.successMessage = 'Account created. Please sign in.';
+                this.cdr.detectChanges();
+              }
+            });
         },
         error: (err) => {
+          this.loading = false;
           const msg =
             err?.error?.message ||
             err?.error?.error ||
             'Registration failed. Please try again.';
           this.errorMessage = msg;
+          this.cdr.detectChanges();
         }
       });
   }
