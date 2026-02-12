@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Lesson } from '../models/module.model';
+import { Quiz } from '../models/module.model';
+
 
 @Injectable({ providedIn: 'root' })
-export class LessonService {
+export class QuizService {
     private readonly apiUrl = 'http://localhost:8080/api/modules';
 
     constructor(private http: HttpClient) {}
 
-    getLessonById(moduleId: number, lessonId: number): Observable<Lesson> {
-        return this.http.get<Lesson>(`${this.apiUrl}/${moduleId}/lessons/${lessonId}`);
+    getQuizById(moduleId: number): Observable<Quiz> {
+        return this.http.get<Quiz>(`${this.apiUrl}/${moduleId}/quiz`);
     }
 }
