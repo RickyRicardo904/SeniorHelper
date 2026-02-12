@@ -1,0 +1,27 @@
+<div class="back-container">
+    <a class="back-btn" routerLink="/dashboard">‹ Back to Dashboard</a>
+</div>
+
+<div class="calendar">
+	<header class="cal-header">
+		<button class="nav" (click)="prevMonth()">‹</button>
+		<div class="title">{{ monthNames[displayMonth] }} {{ displayYear }}</div>
+		<button class="nav" (click)="nextMonth()">›</button>
+	</header>
+
+	<div class="cal-grid">
+		<div class="weekday" *ngFor="let wd of weekDays">{{ wd }}</div>
+
+		<ng-container *ngFor="let week of weeks">
+			<div class="day" *ngFor="let day of week" [class.outside]="!day.inMonth" [class.today]="isToday(day)">
+				<div class="day-num">{{ day.date.getDate() }}</div>
+				<div class="dots">
+					<span class="dot" *ngFor="let e of events[day.iso]"></span>
+				</div>
+				<div class="event-preview" *ngIf="events[day.iso] && events[day.iso].length > 0">
+					{{ events[day.iso][0] }}
+				</div>
+			</div>
+		</ng-container>
+	</div>
+</div>
