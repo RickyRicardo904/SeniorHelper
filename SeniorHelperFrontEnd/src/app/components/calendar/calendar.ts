@@ -1,5 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 interface DayCell {
   date: Date;
@@ -10,7 +11,7 @@ interface DayCell {
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './calendar.html',
   styleUrl: './calendar.css'
 })
@@ -31,6 +32,15 @@ export class Calendar implements OnInit {
     // add some sample events near today
     [this.isoDate(this.today)]: ['Doctor appt 10:00', 'Call with Alex 16:00']
   };
+
+    //Form Method
+    appointmentForm: FormGroup;
+    
+     constructor(private fb: FormBuilder) {
+       this.appointmentForm = this.fb.group({
+         patientName: [''], details: [''], date: [''] 
+        });
+       }
 
   ngOnInit(): void {
     this.buildCalendar();
@@ -106,4 +116,11 @@ export class Calendar implements OnInit {
   hasEvents(cell: DayCell) {
     return (this.events[cell.iso] || []).length > 0;
   }
+  addAppointment() {
+     console.log(this.appointmentForm.value);
+  }
+
+  cancel() {
+     this.appointmentForm.reset();
+   }
 }
