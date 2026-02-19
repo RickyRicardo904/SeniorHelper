@@ -61,16 +61,16 @@ class UserServiceTest {
     void findById_returnsDto_whenFound() {
         User u = new User();
         u.setId(10);
-        u.setUsername("family1");
-        u.setRole(Role.FAMILY);
+        u.setUsername("caregiver2");
+        u.setRole(Role.CAREGIVER);
 
         when(userRepository.findById(10)).thenReturn(Optional.of(u));
 
         UserDto dto = userService.findById(10);
 
         assertThat(dto.getId()).isEqualTo(10);
-        assertThat(dto.getUsername()).isEqualTo("family1");
-        assertThat(dto.getRole()).isEqualTo("FAMILY");
+        assertThat(dto.getUsername()).isEqualTo("caregiver2");
+        assertThat(dto.getRole()).isEqualTo("CAREGIVER");
     }
 
     @Test

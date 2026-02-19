@@ -27,7 +27,7 @@ public class UserDto {
     @Size(max = 100, message = "lastName must be at most 100 characters")
     private String lastName;
 
-    // SENIOR, CAREGIVER, FAMILY, ADMIN
+    // SENIOR, CAREGIVER, ADMIN
     private String role;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Size(min = 8, max = 100, message = "password must be at least 8 characters")

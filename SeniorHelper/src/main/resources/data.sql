@@ -28,7 +28,7 @@ INSERT INTO users (username, email, first_name, last_name, salt, hash, role) VAL
 --id: 11
 ('FrankCaregiver', 'frank.caregiver@seniorhelper.local', 'Frank', 'Caregiver', 'YoFzz6jZVqaFQlKPnyf0AfH4K35ETFyC3J5eOeViG/w=', 'EONSwvav5XgS3BMzENg+RzH1WvO2oYGrN1z+PjRDzc4=', 'CAREGIVER'),
 --id: 12
-('BeatriceFamily', 'beatrice.family@seniorhelper.local', 'Beatrice', 'Family', 'GMdYfTLRVfSAPyPZmuAHSoCENAzIGeLsyzv3JOyzujw=', 'gRdPpzCQrGBJVIG2j8uMefVDLqs6k9M0VUYSM/xTVyg=', 'FAMILY');
+('BeatriceCaregiver', 'beatrice.caregiver@seniorhelper.local', 'Beatrice', 'Caregiver', 'GMdYfTLRVfSAPyPZmuAHSoCENAzIGeLsyzv3JOyzujw=', 'gRdPpzCQrGBJVIG2j8uMefVDLqs6k9M0VUYSM/xTVyg=', 'CAREGIVER');
 
 -- =========================
 -- Modules (6 - Updated to mimic Figma UI Prototype)

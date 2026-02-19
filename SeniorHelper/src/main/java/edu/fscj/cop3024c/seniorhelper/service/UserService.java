@@ -106,7 +106,7 @@ public class UserService {
                 user.setRole(Role.valueOf(dto.getRole().trim().toUpperCase(Locale.ROOT)));
             } catch (IllegalArgumentException ex) {
                 throw new IllegalArgumentException(
-                        "Invalid role: " + dto.getRole() + " (allowed: SENIOR, CAREGIVER, FAMILY, ADMIN)"
+                        "Invalid role: " + dto.getRole() + " (allowed: SENIOR, CAREGIVER, ADMIN)"
                 );
             }
         } else {
@@ -134,7 +134,7 @@ public class UserService {
                 existingUser.setRole(Role.valueOf(userDetails.getRole().trim().toUpperCase(Locale.ROOT)));
             } catch (IllegalArgumentException ex) {
                 throw new IllegalArgumentException(
-                        "Invalid role: " + userDetails.getRole() + " (allowed: SENIOR, CAREGIVER, FAMILY, ADMIN)"
+                        "Invalid role: " + userDetails.getRole() + " (allowed: SENIOR, CAREGIVER, ADMIN)"
                 );
             }
         }

@@ -39,13 +39,13 @@ public class CareLinkService {
         User caregiver = load(caregiverId);
         User senior = load(seniorId);
 
-        // Validate roles (Family and Admin can act as caregiver)
+        // Validate roles (caregiver and admin can act as caregiver)
         Role cr = caregiver.getRole();
         Role sr = senior.getRole();
 
-        if (!(cr == Role.CAREGIVER || cr == Role.FAMILY || cr == Role.ADMIN)) {
+        if (!(cr == Role.CAREGIVER || cr == Role.ADMIN)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "User " + caregiverId + " is not CAREGIVER/FAMILY/ADMIN");
+                    "User " + caregiverId + " is not CAREGIVER/ADMIN");
         }
         if (sr != Role.SENIOR) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,

@@ -94,7 +94,7 @@ public class ProgressService {
         return dto;
     }
 
-    // Admin/caregiver/family can request any senior’s progress (with permission check)
+    // Admin/caregiver can request any senior's progress (with permission check)
     @Transactional(readOnly = true)
     public ProgressDto overallForSenior(Integer seniorId, User requester) {
         if (requester == null) {
