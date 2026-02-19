@@ -68,11 +68,6 @@ export class AuthService {
     sessionStorage.removeItem(this.usernameKey);
   }
 
-  // Backward-compatible alias kept so existing call sites do not break.
-  clearToken(): void {
-    this.clearSession();
-  }
-
   // Route guards use this to decide access quickly.
   isAuthenticated(): boolean {
     return Boolean(this.getToken());

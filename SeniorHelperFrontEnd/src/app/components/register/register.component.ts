@@ -49,7 +49,6 @@ export class RegisterComponent {
         password: this.password,
         role: this.role
       })
-      .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: () => {
           this.authService
@@ -57,7 +56,6 @@ export class RegisterComponent {
             .pipe(finalize(() => (this.loading = false)))
             .subscribe({
               next: (resp) => {
-                this.loading = false;
                 // Keep auth persistence consistent with login flow.
                 this.authService.persistSession(resp.token, this.username.trim(), true);
                 this.registrationCompleted = true;
@@ -66,7 +64,6 @@ export class RegisterComponent {
                 this.cdr.detectChanges();
               },
               error: () => {
-                this.loading = false;
                 this.registrationCompleted = true;
                 this.successMessage = 'Account created. Please sign in.';
                 this.cdr.detectChanges();

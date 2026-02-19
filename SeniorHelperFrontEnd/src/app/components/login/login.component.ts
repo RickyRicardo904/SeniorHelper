@@ -41,7 +41,6 @@ export class LoginComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (resp) => {
-          this.loading = false;
           // Persist token + username in one place so route guards can read auth state.
           this.authService.persistSession(resp.token, this.username.trim(), this.remember);
           this.successMessage = resp.message || 'Signed in successfully.';
@@ -49,7 +48,6 @@ export class LoginComponent {
           this.cdr.detectChanges();
         },
         error: (err) => {
-          this.loading = false;
           const msg =
             err?.error?.message ||
             err?.error?.error ||
