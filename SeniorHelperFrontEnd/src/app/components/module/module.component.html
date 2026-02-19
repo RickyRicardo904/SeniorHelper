@@ -5,7 +5,7 @@
   <div class="page-container">
     <!-- Back Navigation -->
     <button class="back-link" routerLink="/education">
-      <span class="material-icons">arrow_back</span> Back to Modules
+      <span class="material-icons">arrow_back</span> Back to All Modules
     </button>
 
     <!-- 1. Header Card (Module Info & Progress) -->
@@ -24,7 +24,8 @@
 
     <!-- 2. Lessons Card -->
     <div class="content-card">
-      <h2 class="section-title">Lessons</h2>
+      <h2 class="section-title">Lessons in This Module</h2>
+      <p class="description">Select a lesson to get started. We'll save your progress.</p>
       <div class="lessons-list">
         @for (lesson of module.lessons; track lesson.id) {
           <div class="lesson-row" [routerLink]="['lessons', lesson.id]">
@@ -52,12 +53,12 @@
         
         <div class="quiz-description">
           <span class="material-icons notice-icon">lightbulb</span>
-          This quiz is optional and always available. Feel free to take it whenever you're ready, and retake it as many times as you'd like!
+          This quiz helps reinforce key concepts from this module. Take it whenever you're ready to see how much you've learned!
         </div>
 
         <button 
           class="btn primary" 
-          [routerLink]="['quiz']">Take Quiz</button>
+          [routerLink]="['quiz']">Take Practice Quiz</button>
       </div>
     }
   </div>
