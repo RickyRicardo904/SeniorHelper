@@ -21,6 +21,7 @@ export class RegisterComponent {
   loading = false;
   errorMessage = '';
   successMessage = '';
+  private registrationCompleted = false;
 
   constructor(
     private authService: AuthService,
@@ -57,14 +58,16 @@ export class RegisterComponent {
             .subscribe({
               next: (resp) => {
                 this.loading = false;
-                this.authService.saveToken(resp.token, true);
-                this.authService.saveUsername(this.username.trim(), true);
+                // Keep auth persistence consistent with login flow.
+                this.authService.persistSession(resp.token, this.username.trim(), true);
+                this.registrationCompleted = true;
                 this.successMessage = resp.message || 'Signed in successfully.';
                 this.router.navigate(['/home']);
                 this.cdr.detectChanges();
               },
               error: () => {
                 this.loading = false;
+                this.registrationCompleted = true;
                 this.successMessage = 'Account created. Please sign in.';
                 this.cdr.detectChanges();
               }
@@ -80,5 +83,29 @@ export class RegisterComponent {
           this.cdr.detectChanges();
         }
       });
+  }
+
+  canDeactivate(): boolean {
+    if (this.loading) {
+      return false;
+    }
+
+    if (this.registrationCompleted) {
+      return true;
+    }
+
+    const hasDraft =
+      this.firstName.trim().length > 0 ||
+      this.lastName.trim().length > 0 ||
+      this.username.trim().length > 0 ||
+      this.email.trim().length > 0 ||
+      this.password.length > 0 ||
+      this.role.length > 0;
+
+    if (!hasDraft) {
+      return true;
+    }
+
+    return window.confirm('Discard your registration changes?');
   }
 }

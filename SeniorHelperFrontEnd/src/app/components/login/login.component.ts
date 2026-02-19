@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -21,6 +21,7 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
+    private route: ActivatedRoute,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
@@ -42,10 +43,13 @@ export class LoginComponent {
       .subscribe({
         next: (resp) => {
           this.loading = false;
-          this.authService.saveToken(resp.token, this.remember);
-          this.authService.saveUsername(this.username.trim(), this.remember);
+          // Persist token + username in one place so route guards can read auth state.
+          this.authService.persistSession(resp.token, this.username.trim(), this.remember);
           this.successMessage = resp.message || 'Signed in successfully.';
-          this.router.navigate(['/home']);
+          // If user was redirected to login by a guard, send them back where they started.
+          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+          const destination = returnUrl && returnUrl.startsWith('/') ? returnUrl : '/home';
+          this.router.navigateByUrl(destination);
           this.cdr.detectChanges();
         },
         error: (err) => {

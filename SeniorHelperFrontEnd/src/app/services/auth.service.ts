@@ -21,6 +21,16 @@ export class AuthService {
     return this.http.post<RegisterResponse>('http://localhost:8080/api/auth/register', request);
   }
 
+  logout(): Observable<void> {
+    return this.http.post<void>('http://localhost:8080/api/auth/logout', {});
+  }
+
+  // Convenience helper used by login/register to persist both auth fields together.
+  persistSession(token: string, username: string, remember: boolean): void {
+    this.saveToken(token, remember);
+    this.saveUsername(username, remember);
+  }
+
   saveToken(token: string, remember: boolean) {
     if (!token) return;
     if (remember) {
@@ -51,10 +61,20 @@ export class AuthService {
     return localStorage.getItem(this.usernameKey) ?? sessionStorage.getItem(this.usernameKey);
   }
 
-  clearToken() {
+  clearSession(): void {
     localStorage.removeItem(this.tokenKey);
     sessionStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.usernameKey);
     sessionStorage.removeItem(this.usernameKey);
+  }
+
+  // Backward-compatible alias kept so existing call sites do not break.
+  clearToken(): void {
+    this.clearSession();
+  }
+
+  // Route guards use this to decide access quickly.
+  isAuthenticated(): boolean {
+    return Boolean(this.getToken());
   }
 }
