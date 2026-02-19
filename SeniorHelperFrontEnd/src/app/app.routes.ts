@@ -5,7 +5,8 @@ import { HomeComponent } from './components/home/home.component';
 import { EducationComponent } from './components/education/education.component';
 import { ModuleComponent } from './components/module/module.component';
 import { LessonComponent } from './components/lesson/lesson.component';
-import { QuizComponent } from './components/quiz/quiz.component'; 
+import { QuizComponent } from './components/quiz/quiz.component';
+import { CarelinkComponent } from './components/carelink/carelink.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'education/:moduleId', component: ModuleComponent },
   { path: 'education/:moduleId/lessons/:lessonId', component: LessonComponent },
   { path: 'education/:moduleId/quiz', component: QuizComponent},
+  { path: 'connections', component: CarelinkComponent },
   { path: '**', redirectTo: 'login' }
 ];
