@@ -1,55 +1,40 @@
-<div class="carelink-container">
-
-  <a routerLink="/home" class="back-btn">← Back to Dashboard</a>
-
+<div class="container">
+  <button routerLink="/home" class="btn back-btn">Back to Dashboard</button>
   <h2>Connections</h2>
 
-  <div class="connections-layout">
-
+  <div class="connections-wrapper">
     <!-- Left: Create Connection -->
     <div class="create-connection">
-      <h3>Connect with a New User</h3>
-      <p>Enter the user's information to give them access to help manage your schedule.</p>
+      <h3>Create Connection</h3>
+      <p>Connect with a new user:</p>
+      <p>Enter the user's ID to give them access to help manage your schedule.</p>
 
       <form (ngSubmit)="createConnection()">
         <label>
           User ID:
-          <input type="number" [(ngModel)]="newSeniorId" name="seniorId" required />
+          <input type="number" [(ngModel)]="newSeniorId" name="seniorId" required>
         </label>
-
         <label>
           First Name:
-          <input type="text" [(ngModel)]="newFirstName" name="firstName" />
+          <input type="text" [(ngModel)]="newFirstName" name="firstName" required>
         </label>
-
         <label>
           Last Name:
-          <input type="text" [(ngModel)]="newLastName" name="lastName" />
+          <input type="text" [(ngModel)]="newLastName" name="lastName" required>
         </label>
-
-        <button type="submit" class="submit-btn">Submit</button>
+        <button type="submit" class="btn primary">Submit</button>
       </form>
     </div>
 
     <!-- Right: View Connections -->
     <div class="view-connections">
       <h3>Your Connections:</h3>
-
-      <!-- Angular 20+ @if block -->
-      <ng-container *@if="connections?.length > 0; else noConnections">
-        <ng-container *@for="let conn of connections">
-          <div class="connection-item">
-            <p>{{ conn.seniorName }} ({{ conn.role }})</p>
-            <p>Connected since: {{ conn.connectedSince | date }}</p>
-            <button class="delete-btn" (click)="deleteConnection(conn.seniorId)">🗑️</button>
-          </div>
-        </ng-container>
-      </ng-container>
-
-      <ng-template #noConnections>
-        <p>No connections found.</p>
-      </ng-template>
+      <div *ngFor="let conn of connections; let i = index" class="connection-item">
+        <p><strong>{{ conn.caregiverName }}</strong></p>
+        <p>{{ conn.role }}</p>
+        <p>Connected since: {{ conn.connectedSince | date }}</p>
+        <button class="btn danger" (click)="deleteConnection(i)">Delete</button>
+      </div>
     </div>
-
   </div>
 </div>

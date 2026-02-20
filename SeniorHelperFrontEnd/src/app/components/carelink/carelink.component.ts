@@ -1,58 +1,80 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { CareLinkModel } from '../../models/carelink.model';
-import { CareLinkService } from '../../services/carelink.service';
+import { RouterModule } from '@angular/router';
+
+export interface CareLinkModel {
+  caregiverId: number;
+  caregiverName: string;
+  seniorId: number;
+  seniorName: string;
+  role: string;
+  connectedSince: string;
+}
 
 @Component({
   selector: 'app-carelink',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  standalone: true, // IMPORTANT
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './carelink.component.html',
-  styleUrls: ['./carelink.component.css'],
+  styleUrls: ['./carelink.component.css']
 })
 export class CarelinkComponent implements OnInit {
-  connections: CareLinkModel[] = [];
-
-  // Fields for creating a connection
   newSeniorId: number | null = null;
   newFirstName: string = '';
   newLastName: string = '';
 
-  constructor(private careLinkService: CareLinkService) {}
+  connections: CareLinkModel[] = [];
 
   ngOnInit(): void {
-    this.loadConnections();
-  }
-
-  loadConnections(): void {
-    this.careLinkService.viewConnections().subscribe({
-      next: (data) => (this.connections = data),
-      error: (err) => console.error(err),
-    });
+    this.connections = [
+      {
+        caregiverId: 1,
+        caregiverName: 'Nolan, Frank',
+        seniorId: 101,
+        seniorName: 'Caregiver',
+        role: 'Caregiver',
+        connectedSince: '2026-01-15'
+      },
+      {
+        caregiverId: 2,
+        caregiverName: 'Hernandez, Julia',
+        seniorId: 102,
+        seniorName: 'Family',
+        role: 'Family',
+        connectedSince: '2026-01-16'
+      },
+      {
+        caregiverId: 3,
+        caregiverName: 'Watson, Eric',
+        seniorId: 103,
+        seniorName: 'Family',
+        role: 'Family',
+        connectedSince: '2026-01-16'
+      }
+    ];
   }
 
   createConnection(): void {
-    if (this.newSeniorId !== null) {
-      const caregiverId = 1; // Replace with actual logged-in caregiver ID
-      this.careLinkService.createConnection(caregiverId, this.newSeniorId).subscribe({
-        next: () => {
-          this.newSeniorId = null;
-          this.newFirstName = '';
-          this.newLastName = '';
-          this.loadConnections(); // refresh list after creation
-        },
-        error: (err) => console.error(err),
-      });
-    }
+    if (!this.newSeniorId || !this.newFirstName || !this.newLastName) return;
+
+    const newConn: CareLinkModel = {
+      caregiverId: Date.now(),
+      caregiverName: `${this.newFirstName}, ${this.newLastName}`,
+      seniorId: this.newSeniorId,
+      seniorName: 'Family',
+      role: 'Family',
+      connectedSince: new Date().toISOString().split('T')[0]
+    };
+
+    this.connections.push(newConn);
+
+    this.newSeniorId = null;
+    this.newFirstName = '';
+    this.newLastName = '';
   }
 
-  deleteConnection(seniorId: number): void {
-    const caregiverId = 1;
-    this.careLinkService.deleteConnection(caregiverId, seniorId).subscribe({
-      next: () => this.loadConnections(),
-      error: (err) => console.error(err),
-    });
+  deleteConnection(index: number): void {
+    this.connections.splice(index, 1);
   }
 }
