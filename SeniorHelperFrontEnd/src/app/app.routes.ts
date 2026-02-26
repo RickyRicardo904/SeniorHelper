@@ -6,6 +6,7 @@ import { EducationComponent } from './components/education/education.component';
 import { ModuleComponent } from './components/module/module.component';
 import { LessonComponent } from './components/lesson/lesson.component';
 import { QuizComponent } from './components/quiz/quiz.component';
+import { CarelinkComponent } from './components/carelink/carelink.component';
 import { guestOnlyGuard, pendingChangesGuard, requireAuthChildGuard } from './components/guards/auth.guard';
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
     canActivateChild: [requireAuthChildGuard],
     children: [
       { path: 'home', component: HomeComponent },
+      { path: 'connections', component: CarelinkComponent },
       { path: 'education', component: EducationComponent },
       { path: 'education/:moduleId', component: ModuleComponent },
       { path: 'education/:moduleId/lessons/:lessonId', component: LessonComponent },
