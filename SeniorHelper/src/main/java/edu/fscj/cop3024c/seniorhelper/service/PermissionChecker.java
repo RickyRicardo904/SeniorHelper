@@ -24,7 +24,7 @@ public class PermissionChecker {
         return switch (role) {
             case ADMIN -> true;                                      // Admin: can view anyone
             case SENIOR -> requester.getId().equals(seniorId);       // Senior: can view self
-            case CAREGIVER, FAMILY ->                                 // Caregiver/Family: must be linked
+            case CAREGIVER ->                                         // Caregiver: must be linked
                     links.existsByCaregiver_IdAndSenior_Id(requester.getId(), seniorId);
         };
     }

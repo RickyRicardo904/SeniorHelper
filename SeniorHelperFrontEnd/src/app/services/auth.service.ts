@@ -8,10 +8,6 @@ import { RegisterResponse } from '../models/register-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.tokenKey);
-   ;
-  }
   private readonly tokenKey = 'auth_token';
   private readonly usernameKey = 'auth_username';
 
@@ -23,6 +19,16 @@ export class AuthService {
 
   register(request: RegisterRequest): Observable<RegisterResponse> {
     return this.http.post<RegisterResponse>('http://localhost:8080/api/auth/register', request);
+  }
+
+  logout(): Observable<void> {
+    return this.http.post<void>('http://localhost:8080/api/auth/logout', {});
+  }
+
+  // Convenience helper used by login/register to persist both auth fields together.
+  persistSession(token: string, username: string, remember: boolean): void {
+    this.saveToken(token, remember);
+    this.saveUsername(username, remember);
   }
 
   saveToken(token: string, remember: boolean) {
@@ -55,10 +61,19 @@ export class AuthService {
     return localStorage.getItem(this.usernameKey) ?? sessionStorage.getItem(this.usernameKey);
   }
 
-  clearToken() {
+  clearSession(): void {
     localStorage.removeItem(this.tokenKey);
     sessionStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.usernameKey);
     sessionStorage.removeItem(this.usernameKey);
+  }
+
+  clearToken(): void {
+    this.clearSession();
+  }
+
+  // Route guards use this to decide access quickly.
+  isAuthenticated(): boolean {
+    return Boolean(this.getToken());
   }
 }

@@ -3,12 +3,12 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { AuthService } from '../../services/auth.service';
 import { Appointment } from '../../models/appointment.model';
 import { AppointmentService } from '../../services/appointment.service';
+import { AuthService } from '../../services/auth.service';
 
-const DEFAULT_DISPLAY_NAME = 'friend';
 const MAX_UPCOMING_APPOINTMENTS = 4;
+const DEFAULT_DISPLAY_NAME = 'friend';
 
 @Component({
   selector: 'app-home',
@@ -22,15 +22,12 @@ export class HomeComponent {
   readonly upcomingAppointments$: Observable<Appointment[]>;
 
   constructor(
-    private authService: AuthService,
-    private appointmentService: AppointmentService
+    private readonly appointmentService: AppointmentService,
+    private readonly authService: AuthService
   ) {
-    this.displayName = this.getDisplayName();
+    // Show remembered username if available; otherwise keep a friendly fallback.
+    this.displayName = this.authService.getUsername() || DEFAULT_DISPLAY_NAME;
     this.upcomingAppointments$ = this.loadUpcomingAppointments();
-  }
-
-  private getDisplayName(): string {
-    return this.authService.getUsername() || DEFAULT_DISPLAY_NAME;
   }
 
   private loadUpcomingAppointments(): Observable<Appointment[]> {

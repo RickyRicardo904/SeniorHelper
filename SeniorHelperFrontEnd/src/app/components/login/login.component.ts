@@ -41,15 +41,13 @@ export class LoginComponent {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (resp) => {
-          this.loading = false;
-          this.authService.saveToken(resp.token, this.remember);
-          this.authService.saveUsername(this.username.trim(), this.remember);
+          // Persist token + username in one place so route guards can read auth state.
+          this.authService.persistSession(resp.token, this.username.trim(), this.remember);
           this.successMessage = resp.message || 'Signed in successfully.';
           this.router.navigate(['/home']);
           this.cdr.detectChanges();
         },
         error: (err) => {
-          this.loading = false;
           const msg =
             err?.error?.message ||
             err?.error?.error ||
