@@ -45,6 +45,9 @@
   color: var(--accent);
   cursor: pointer;
   padding: 0;
+  border: none;
+  outline: none;
+  background: none;
 }
 
 .nav-icon:hover {
@@ -59,7 +62,6 @@
   line-height: 32px;
 }
 .nav-icon.logout-button {
-  /* Match "Senior Helper" Typography exactly */
   font-size: 20pt;
   font-weight: 700;
   font-family: 'Inter', sans-serif;
@@ -69,17 +71,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 44px;      /* Matches icon height for perfect alignment */
-  width: auto;       /* Removes the "weird circle" constraint */
-  padding: 0 16px;   /* Room for the shading box to breathe */
-  border-radius: 8px; /* Soft rectangular corners for shading */
+  height: 44px;
+  width: auto;
+  padding: 0 16px;
+  border-radius: 8px;
   
   /* Reset Button Defaults */
   background: none;
   border: none;
   cursor: pointer;
   text-decoration: none;
-  margin-left: 0;    /* Let the navbar gap handle the spacing */
+  margin-left: 0;
   transition: all 0.3s ease;
 }
 
@@ -87,6 +89,7 @@
   background-color: var(--accent-glow);
   color: var(--accent-dark);
 }
+
 button {
   background: none;
   border: none;
@@ -110,6 +113,9 @@ button {
     display: flex !important;
     color: var(--footer-text);
     z-index: 101;
+    border: none;
+    outline: none;
+    background: none;
   }
 
   /* Hide Menu by default */
