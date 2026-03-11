@@ -3,10 +3,11 @@ import { RouterOutlet, Router } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, CommonModule, FormsModule],
   templateUrl: './app.html'
 })
 export class App {
@@ -15,6 +16,7 @@ export class App {
   constructor(private router: Router) {}
 
   isNotLoginPage(): boolean {
-    return !this.router.url.includes('login');
+    const url = this.router.url;
+    return !url.includes('login') && !url.includes('register');
   }
 }

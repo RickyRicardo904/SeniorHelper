@@ -1,14 +1,32 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
 import { EducationComponent } from './components/education/education.component';
-import { Calendar } from './components/calendar/calendar';
+import { ModuleComponent } from './components/module/module.component';
+import { LessonComponent } from './components/lesson/lesson.component';
+import { QuizComponent } from './components/quiz/quiz.component';
+import { CarelinkComponent } from './components/carelink/carelink.component';
+import { guestOnlyGuard, pendingChangesGuard, requireAuthChildGuard } from './components/guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'education', component: EducationComponent },
-  { path: 'calendar', component: Calendar },
-  { path: '**', redirectTo: 'login' }
+  // Entry route resolves through the protected home path.
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: 'login', component: LoginComponent, canActivate: [guestOnlyGuard] },
+  { path: 'register', component: RegisterComponent, canDeactivate: [pendingChangesGuard] },
+  {
+    path: '',
+    // Any child in this group requires authentication.
+    canActivateChild: [requireAuthChildGuard],
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'connections', component: CarelinkComponent },
+      { path: 'education', component: EducationComponent },
+      { path: 'education/:moduleId', component: ModuleComponent },
+      { path: 'education/:moduleId/lessons/:lessonId', component: LessonComponent },
+      { path: 'education/:moduleId/quiz', component: QuizComponent }
+    ]
+  },
+  // Unknown URLs flow through home and then auth guard logic.
+  { path: '**', redirectTo: 'home' }
 ];

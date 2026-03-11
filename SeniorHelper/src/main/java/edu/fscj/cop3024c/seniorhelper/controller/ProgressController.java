@@ -30,7 +30,7 @@ public class ProgressController {
     }
 
     // ---------- Progress for a specific senior ----------
-    // Admin: any user; Caregiver/Family: must have CareLink; Senior: self
+    // Admin: any user; Caregiver: must have CareLink; Senior: self
     @PreAuthorize("@permissionChecker.hasPermission(principal, #seniorId)")
     @GetMapping("/progress/seniors/{seniorId}")
     public ResponseEntity<ProgressDto> progressForSenior(@PathVariable Integer seniorId,
