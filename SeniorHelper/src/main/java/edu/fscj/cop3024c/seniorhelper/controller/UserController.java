@@ -49,7 +49,7 @@ public class UserController {
         return userService.findAll();
     }
 
-    // ---------- GET ONE SENIOR (admin|self|linked caregiver/family) ----------
+    // ---------- GET ONE SENIOR (admin|self|linked caregiver) ----------
     @PreAuthorize("@permissionChecker.hasPermission(principal, #id)")
     @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable Integer id) {

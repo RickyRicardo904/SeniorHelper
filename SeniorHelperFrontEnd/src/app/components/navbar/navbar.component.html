@@ -2,7 +2,7 @@
   <div class="navbar-content">
     <!-- Left side: App name -->
     <div class="navbar-brand">
-      <span class="app-name">Senior Helper</span>
+      <a routerLink="/home" class="app-name">Senior Helper</a>
     </div>
 
     <!-- Right side: Icons and logout -->
@@ -27,7 +27,7 @@
         <span class="material-icons">manage_accounts</span>
       </a>
 
-      <span class="logout-text">Logout</span>
+      <button class="nav-icon logout-text" (click)="clearToken()">Logout</button>
     </div>
   </div>
 </nav>

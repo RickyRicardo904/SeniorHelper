@@ -3,7 +3,10 @@ package edu.fscj.cop3024c.seniorhelper.controller;
 import edu.fscj.cop3024c.seniorhelper.entities.User;
 import edu.fscj.cop3024c.seniorhelper.model.LoginRequest;
 import edu.fscj.cop3024c.seniorhelper.model.LoginResponse;
+import edu.fscj.cop3024c.seniorhelper.model.RegisterRequest;
+import edu.fscj.cop3024c.seniorhelper.model.UserDto;
 import edu.fscj.cop3024c.seniorhelper.service.AuthService;
+import edu.fscj.cop3024c.seniorhelper.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -26,10 +29,12 @@ import java.util.Map;
 public class AuthController {
 
     private final AuthService authService;
+    private final UserService userService;
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, UserService userService) {
         this.authService = authService;
+        this.userService = userService;
     }
 
     // ---------- Login (public) ----------
@@ -44,24 +49,18 @@ public class AuthController {
             LoginResponse resp = authService.login(req);
             logger.info("Login successful for user: {}", username);
             return ResponseEntity.ok(resp);
-
-        } catch (org.springframework.security.core.AuthenticationException ex) {
-            // Auth failures throw 401
-            logger.warn("Login failed for {}", username);
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials", ex);
-
-        } catch (ResponseStatusException ex) {
-            throw ex;
-
-        } catch (Exception ex) {
-            // Non-auth errors throw 500
-            logger.error("Login error for {}: {}", username, ex.getMessage(), ex);
-            throw ex;
-
         } finally {
             TimeInstrument ti = profiler.stop();
             ti.print();
         }
+    }
+
+    // ---------- Register (public) ----------
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> register(@Valid @RequestBody RegisterRequest req) {
+        UserDto registered = userService.register(req);
+        logger.info("Registration successful for user: {}", registered.getUsername());
+        return ResponseEntity.status(HttpStatus.CREATED).body(registered);
     }
 
     // ---------- Logout ----------

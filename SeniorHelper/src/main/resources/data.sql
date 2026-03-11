@@ -1,59 +1,75 @@
 -- =========================
 -- Users (seniors, caregiver, admin)
 -- =========================
-INSERT INTO users (username, salt, hash, role) VALUES
+INSERT INTO users (username, email, first_name, last_name, salt, hash, role) VALUES
 
 --password for all users is: 'password'
 
 --id: 1
-('BaudelaireAdmin', 'ydJ2wCfF1UyFUIGB+zPujU49znvnSephWCSUpKgsVX4=', 'yb0nfYHSbJ3M2xVVjCpXW1LYbvUDtPqdeQB9g4NTVE4=', 'ADMIN'),
+('BaudelaireAdmin', 'baudelaire.admin@seniorhelper.local', 'Baudelaire', 'Admin', 'ydJ2wCfF1UyFUIGB+zPujU49znvnSephWCSUpKgsVX4=', 'yb0nfYHSbJ3M2xVVjCpXW1LYbvUDtPqdeQB9g4NTVE4=', 'ADMIN'),
 --id: 2
-('BrittonAdmin', '3npCHXX42Y7SwcDxniJBvM3x6nQ+8a0TonWKuw6nCsk=', 'zqaprzPMJDP6zMyGvYcCJrx5QP1gCj0pNj1MqhhQg9g=', 'ADMIN'),
+('DayneAdmin', 'dayne.admin@seniorhelper.local', 'Dayne', 'Admin', '3npCHXX42Y7SwcDxniJBvM3x6nQ+8a0TonWKuw6nCsk=', 'zqaprzPMJDP6zMyGvYcCJrx5QP1gCj0pNj1MqhhQg9g=', 'ADMIN'),
 --id: 3
-('DeweyAdmin', 'Wpd/YLoxqy+7sMTp0QnSx4ebOi53HFB2v4P7Mc8h8l4=', 'H/yX0mjIhX8idPV7/q5BgiOHEZ1HCD7q2QJya0NWsVg=', 'ADMIN'),
+('DeweyAdmin', 'dewey.admin@seniorhelper.local', 'Dewey', 'Admin', 'Wpd/YLoxqy+7sMTp0QnSx4ebOi53HFB2v4P7Mc8h8l4=', 'H/yX0mjIhX8idPV7/q5BgiOHEZ1HCD7q2QJya0NWsVg=', 'ADMIN'),
 --id: 4
-('TamiaAdmin', 'd9kXezXEkjF0/t8AEycRy+gnhkXWBpE0LbqxSCrdsh4=', 'goSlUKo5izH/FqxjkpjErm8SP9zGHwUyF5t8B4REoGQ=', 'ADMIN'),
+('TamiaAdmin', 'tamia.admin@seniorhelper.local', 'Tamia', 'Admin', 'd9kXezXEkjF0/t8AEycRy+gnhkXWBpE0LbqxSCrdsh4=', 'goSlUKo5izH/FqxjkpjErm8SP9zGHwUyF5t8B4REoGQ=', 'ADMIN'),
 --id: 5
-('LaurenAdmin', 'R88ML2dHsCSeMGThU1TB0dBEi8HJsZPJQCYjubCKThA=', 'SHTkxE6sw7GCCcRzyLqApYyKpxc7uYK+p1wr57/A0IQ=', 'ADMIN'),
+('LaurenAdmin', 'lauren.admin@seniorhelper.local', 'Lauren', 'Admin', 'R88ML2dHsCSeMGThU1TB0dBEi8HJsZPJQCYjubCKThA=', 'SHTkxE6sw7GCCcRzyLqApYyKpxc7uYK+p1wr57/A0IQ=', 'ADMIN'),
 --id: 6
-('RickyAdmin', 'LHEMYdL7wXX1n/Te0MtZMIwaWB62tYX5vut3k7hrzyY=', 'XmjrUwL0Si9aqZYF0l+sRAhJCZiBEkWxDUdJsVrErgo=', 'ADMIN'),
+('RickyAdmin', 'ricky.admin@seniorhelper.local', 'Ricky', 'Admin', 'LHEMYdL7wXX1n/Te0MtZMIwaWB62tYX5vut3k7hrzyY=', 'XmjrUwL0Si9aqZYF0l+sRAhJCZiBEkWxDUdJsVrErgo=', 'ADMIN'),
 --id: 7
-('JohnSenior', 'xLIMpTWxayc83HWei6vBMoMlg2mYFhOBM/+/SY/kcYI=', '+Df1zgqiCFlAyTdoBHyqCXiib9RPLH6P8uUQb4WGs24=', 'SENIOR'),
+('JohnSenior', 'john.senior@seniorhelper.local', 'John', 'Senior', 'xLIMpTWxayc83HWei6vBMoMlg2mYFhOBM/+/SY/kcYI=', '+Df1zgqiCFlAyTdoBHyqCXiib9RPLH6P8uUQb4WGs24=', 'SENIOR'),
 --id: 8
-('GertrudeSenior', 'AgnahNewZ4qEU0MRqJChpZPMgSzQtl4PdlC7jy7qRBs=', 'YV8Uq0hZTlisg2RITbSk+uNXSD6LZ1oPRt4N1X5RdR4=', 'SENIOR'),
+('GertrudeSenior', 'gertrude.senior@seniorhelper.local', 'Gertrude', 'Senior', 'AgnahNewZ4qEU0MRqJChpZPMgSzQtl4PdlC7jy7qRBs=', 'YV8Uq0hZTlisg2RITbSk+uNXSD6LZ1oPRt4N1X5RdR4=', 'SENIOR'),
 --id: 9
-('TimSenior', 'BMAVSc+jeTNzsFHcfhnUHeTjhgNZy6klGULmK1lFYn4=', 'rRNk/0Tq5JB1bN6mRvKNxRqyMZe4zjofZMJXOMOlLTc=', 'SENIOR'),
+('TimSenior', 'tim.senior@seniorhelper.local', 'Tim', 'Senior', 'BMAVSc+jeTNzsFHcfhnUHeTjhgNZy6klGULmK1lFYn4=', 'rRNk/0Tq5JB1bN6mRvKNxRqyMZe4zjofZMJXOMOlLTc=', 'SENIOR'),
 --id: 10
-('DorothyCaregiver', 'pkP4b5lTxL8HPqHu5MZVOZaJOeczVXvLZx0TidkEa6U=', 'ThiZ3KUEaaHhCArXkZjZtSUeFUu+7hQPOdoQjM+yvYo=', 'CAREGIVER'),
+('DorothyCaregiver', 'dorothy.caregiver@seniorhelper.local', 'Dorothy', 'Caregiver', 'pkP4b5lTxL8HPqHu5MZVOZaJOeczVXvLZx0TidkEa6U=', 'ThiZ3KUEaaHhCArXkZjZtSUeFUu+7hQPOdoQjM+yvYo=', 'CAREGIVER'),
 --id: 11
-('FrankCaregiver', 'YoFzz6jZVqaFQlKPnyf0AfH4K35ETFyC3J5eOeViG/w=', 'EONSwvav5XgS3BMzENg+RzH1WvO2oYGrN1z+PjRDzc4=', 'CAREGIVER'),
+('FrankCaregiver', 'frank.caregiver@seniorhelper.local', 'Frank', 'Caregiver', 'YoFzz6jZVqaFQlKPnyf0AfH4K35ETFyC3J5eOeViG/w=', 'EONSwvav5XgS3BMzENg+RzH1WvO2oYGrN1z+PjRDzc4=', 'CAREGIVER'),
 --id: 12
-('BeatriceFamily', 'GMdYfTLRVfSAPyPZmuAHSoCENAzIGeLsyzv3JOyzujw=', 'gRdPpzCQrGBJVIG2j8uMefVDLqs6k9M0VUYSM/xTVyg=', 'FAMILY');
+('BeatriceCaregiver', 'beatrice.caregiver@seniorhelper.local', 'Beatrice', 'Caregiver', 'GMdYfTLRVfSAPyPZmuAHSoCENAzIGeLsyzv3JOyzujw=', 'gRdPpzCQrGBJVIG2j8uMefVDLqs6k9M0VUYSM/xTVyg=', 'CAREGIVER');
 
 -- =========================
 -- Modules (6 - Updated to mimic Figma UI Prototype)
 -- =========================
 INSERT INTO modules (title, description)
 VALUES
-('Spotting Fake Messages', 'Learn to identify and avoid phishing emails and messages'),
-('Passwords & Privacy', 'Create strong, unique passwords and use a Password Manager to remember safely'),
-('Device Defense', 'Install system updates regularly to ensure your device has the latest security features'),
-('Safe Shopping Online', 'Verify secure websites and use protected payments like credit cards for purchases'),
-('Imposter Scams', 'Detect callers or messengers pretending to be government officials or tech support'),
-('What to Do If Scammed', 'Follow a recovery plan to report the incident and secure your financial accounts');
+('Spotting Fake Messages', 'Learn how to recognize and avoid fake emails and scam messages'),
+('Passwords & Privacy', 'Protect your accounts with better passwords and safe storage'),
+('Device Defense', 'Keep your device secure with updates and basic protection steps'),
+('Safe Shopping Online', 'How to tell if a website is safe before you purchase'),
+('Imposter Scams', 'Avoid scams from fake tech support and government callers'),
+('What to Do If Scammed', 'How to recover and protect your accounts after a scam');
 
 -- =========================
 -- Lessons (2 per module)
 -- =========================
 INSERT INTO lessons (title, description, module_id)
 VALUES
--- Module 1
-('Lesson 1', 'What are Email and Text Scams?', 1),
-('Lesson 2', 'Spotting Phishing Websites: URLs, padlocks, and warning signs seniors should know.', 1),
+-- Module 1 (Spotting Fake Messages)
+('Lesson 1 - What Fake Messages Look Like', 'Learn the common signs of fake emails, texts, and online messages.', 1),
+('Lesson 2 - What To Do When You Get One', 'Know the safest steps to take when you receive a suspicious message.', 1),
 
--- Module 2
-('Lesson 1', 'Creating Strong Passwords', 2),
-('Lesson 2', 'Two-Factor Authentication: Why it matters and how to set it up safely.', 2);
+-- Module 2 (Passwords & Privacy)
+('Lesson 1 - How to Create Strong Passwords', 'Learn the simple ways to create passwords that are hard to guess.', 2),
+('Lesson 2 - Password Mistakes to Avoid', 'Avoid common habits that make accounts easy to break into.', 2),
+
+-- Module 3 (Device Defense)
+('Lesson 1 - Why Device Updates Matter', 'Understand how updates fix security problems and keep you protected.', 3),
+('Lesson 2 - Turning On Automatic Updates', 'Learn how to enable automatic updates on your devices.', 3),
+
+-- Module 4 (Safe Shopping Online)
+('Lesson 1 - How to Tell if a Website Is Safe', 'Check for security signs before entering payment details.', 4),
+('Lesson 2 - Safer Ways to Pay Online', 'Choose payment methods that give you fraud protection.', 4),
+
+-- Module 5 (Imposter Scams)
+('Lesson 1 - Impersonation Scams', 'Recognize how scammers pretend to be officials, tech support, or family members.', 5),
+('Lesson 2 - How to Verify Who Contacted You', 'Use safe methods to confirm if a caller or sender is real.', 5),
+
+-- Module 6 (What to Do If Scammed)
+('Lesson 1 - What to Do Right Away', 'Take immediate steps to stop further damage, secure your accounts, and document what happened.', 6),
+('Lesson 2 - Report, Recover, Prevent', 'Learn who to contact, how to recover your accounts, and prevention methods.', 6);
 
 -- =========================
 -- Quizzes (1 per module)
@@ -140,4 +156,10 @@ INSERT INTO quiz_completions (user_id, quiz_id, completed_at) VALUES
 -- =========================
 INSERT INTO appointments (senior_id, title, location, notes, start, "end") VALUES
     (7, 'Yearly Physical', 'UF Health North', 'Just a yearly checkup',
-     TIMESTAMP '2025-12-25 13:43:41.373', TIMESTAMP '2025-12-25 14:43:41.373');
+     TIMESTAMP '2026-10-25 13:43:41.373', TIMESTAMP '2025-10-25 14:43:41.373'),
+
+    (7, 'Routine Bloodwork', 'Baptist Health', 'Full blood panel',
+     TIMESTAMP '2026-10-27 14:00:00', TIMESTAMP '2026-10-27 15:00:00'),
+
+    (7, 'Teeth Cleaning', 'Oceanway Dental', 'Routine teeth cleaning',
+     TIMESTAMP '2026-11-01 09:00:00', TIMESTAMP '2026-11-01 10:00:00');
