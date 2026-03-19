@@ -38,7 +38,7 @@ export class ModuleComponent {
                     map(({ module, progress }) => {
                         
                         // Find the specific module inside the progress report
-                        const moduleProgress = progress.modules.find((m: any) => m.moduleId === id);
+                        const moduleProgress = progress.modules.find((m: any) => m.id === id);
 
                         // Merge the 'completed' status into our module object
                         if (moduleProgress) {

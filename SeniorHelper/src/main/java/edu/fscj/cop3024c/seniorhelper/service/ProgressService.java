@@ -73,8 +73,9 @@ public class ProgressService {
                     .toList();
 
             ProgressDto.Module mod = new ProgressDto.Module();
-            mod.setModuleId(m.getId());
-            mod.setModuleTitle(m.getTitle());
+            mod.setId(m.getId());
+            mod.setTitle(m.getTitle());
+            mod.setDescription(m.getDescription());
             mod.setLessons(lessonDtos);
 
             // Module's single quiz (if present)

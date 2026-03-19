@@ -17,9 +17,17 @@
 
           <p class="module-description">{{ module.description }}</p>
 
-          <button 
+          <button class="btn primary" 
+          [routerLink]="['/education', module.id]">
+          {{ getButtonProgress(module) }}
+          </button>
+
+            <!-- // OLD CODE - Will Remove After Testing -->
+          <!-- <button 
             class="btn primary"
-            [routerLink]="['/education', module.id]">Start Learning</button>
+            [routerLink]="['/education', module.id]">
+            Start Learning
+            </button>  -->
         </div>
       }
     </div>
