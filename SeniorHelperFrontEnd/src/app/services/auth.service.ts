@@ -1,15 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { RegisterRequest } from '../models/register-request.model';
 import { RegisterResponse } from '../models/register-response.model';
 
+export interface UserProfileResponse {
+  id: number;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly tokenKey = 'auth_token';
   private readonly usernameKey = 'auth_username';
+  private readonly usersApiUrl = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient) {}
 
@@ -23,6 +34,16 @@ export class AuthService {
 
   logout(): Observable<void> {
     return this.http.post<void>('http://localhost:8080/api/auth/logout', {});
+  }
+
+  getMyProfile(): Observable<UserProfileResponse> {
+    return this.http.get<UserProfileResponse>(`${this.usersApiUrl}/me`);
+  }
+
+  getMyFirstName(): Observable<string | null> {
+    return this.getMyProfile().pipe(
+      map((profile) => profile.firstName?.trim() || null)
+    );
   }
 
   // Convenience helper used by login/register to persist both auth fields together.
