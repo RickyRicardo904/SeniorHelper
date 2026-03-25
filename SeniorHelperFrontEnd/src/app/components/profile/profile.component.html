@@ -1,16 +1,16 @@
-<div class="page">
-  <div class="page-content">
-    <main class="profile-card" aria-label="Profile settings form">
-      <header class="profile-header">
+<div class="page sh-page">
+  <div class="page-content sh-page-content">
+    <main class="profile-card sh-form-card" aria-label="Profile settings form">
+      <header class="profile-header sh-form-header">
         <h1>Profile Settings</h1>
         <p>Update your username, first name, last name, or email.</p>
       </header>
 
       @if (loading) {
-        <p class="status">Loading your settings...</p>
+        <p class="status sh-status">Loading your settings...</p>
       } @else {
-        <form class="profile-form" #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
-          <label class="field">
+        <form class="profile-form sh-form" #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
+          <label class="field sh-field">
             <span>Username:</span>
             <input
               type="text"
@@ -23,7 +23,7 @@
             />
           </label>
 
-          <label class="field">
+          <label class="field sh-field">
             <span>First Name:</span>
             <input
               type="text"
@@ -34,7 +34,7 @@
             />
           </label>
 
-          <label class="field">
+          <label class="field sh-field">
             <span>Last Name:</span>
             <input
               type="text"
@@ -45,7 +45,7 @@
             />
           </label>
 
-          <label class="field">
+          <label class="field sh-field">
             <span>Email:</span>
             <input
               type="email"
@@ -56,12 +56,12 @@
             />
           </label>
 
-          <button class="btn primary" type="submit" [disabled]="saving">
+          <button class="btn primary sh-btn sh-btn--primary" type="submit" [disabled]="saving">
             {{ saving ? 'Saving...' : 'Save Changes' }}
           </button>
 
           @if (errorMessage) {
-            <p class="status error">{{ errorMessage }}</p>
+            <p class="status error sh-status sh-status--error">{{ errorMessage }}</p>
           }
         </form>
       }
