@@ -1,0 +1,57 @@
+<div class="page">
+  <div class="page-content">
+    <main class="profile-card" aria-label="Profile settings form">
+      <header class="profile-header">
+        <h1>Profile Settings</h1>
+        <p>Update your first name, last name, or email.</p>
+      </header>
+
+      @if (loading) {
+        <p class="status">Loading your settings...</p>
+      } @else {
+        <form class="profile-form" #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
+          <label class="field">
+            <span>First Name:</span>
+            <input
+              type="text"
+              name="firstName"
+              [(ngModel)]="firstName"
+              autocomplete="given-name"
+              required
+            />
+          </label>
+
+          <label class="field">
+            <span>Last Name:</span>
+            <input
+              type="text"
+              name="lastName"
+              [(ngModel)]="lastName"
+              autocomplete="family-name"
+              required
+            />
+          </label>
+
+          <label class="field">
+            <span>Email:</span>
+            <input
+              type="email"
+              name="email"
+              [(ngModel)]="email"
+              autocomplete="email"
+              required
+            />
+          </label>
+
+          <button class="btn primary" type="submit" [disabled]="saving">
+            {{ saving ? 'Saving...' : 'Save Changes' }}
+          </button>
+
+          @if (errorMessage) {
+            <p class="status error">{{ errorMessage }}</p>
+          }
+        </form>
+      }
+    </main>
+  </div>
+</div>

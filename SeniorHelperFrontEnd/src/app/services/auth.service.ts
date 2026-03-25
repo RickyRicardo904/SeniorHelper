@@ -16,6 +16,13 @@ export interface UserProfileResponse {
   role: string;
 }
 
+export interface UpdateProfileRequest {
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly tokenKey = 'auth_token';
@@ -38,6 +45,10 @@ export class AuthService {
 
   getMyProfile(): Observable<UserProfileResponse> {
     return this.http.get<UserProfileResponse>(`${this.usersApiUrl}/me`);
+  }
+
+  updateMyProfile(id: number, request: UpdateProfileRequest): Observable<UserProfileResponse> {
+    return this.http.put<UserProfileResponse>(`${this.usersApiUrl}/${id}`, request);
   }
 
   getMyFirstName(): Observable<string | null> {
