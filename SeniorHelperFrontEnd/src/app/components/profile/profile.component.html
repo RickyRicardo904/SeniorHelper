@@ -3,13 +3,26 @@
     <main class="profile-card" aria-label="Profile settings form">
       <header class="profile-header">
         <h1>Profile Settings</h1>
-        <p>Update your first name, last name, or email.</p>
+        <p>Update your username, first name, last name, or email.</p>
       </header>
 
       @if (loading) {
         <p class="status">Loading your settings...</p>
       } @else {
         <form class="profile-form" #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)">
+          <label class="field">
+            <span>Username:</span>
+            <input
+              type="text"
+              name="username"
+              [(ngModel)]="username"
+              autocomplete="username"
+              minlength="3"
+              maxlength="50"
+              required
+            />
+          </label>
+
           <label class="field">
             <span>First Name:</span>
             <input
