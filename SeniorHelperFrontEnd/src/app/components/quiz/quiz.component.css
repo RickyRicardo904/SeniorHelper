@@ -9,6 +9,7 @@
     margin-bottom: 20px;
     justify-content: center;
     align-items: stretch;
+    background: var(--page-bg);
 }
 
 .back-link {
@@ -36,16 +37,17 @@
 .answer-text-card {
     flex-grow: 1;
     padding: 16px 20px;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
     border-radius: 8px;
+    color: var(--text-strong);
     font-size: 16px;
     transition: all 0.2s ease;
 }
 
 .answer-row:hover .answer-text-card {
-    border-color: #CBD5E1;
-    background-color: #F8FAFC;
+    border-color: var(--accent);
+    background-color: var(--button-secondary-hover);
 }
 
 .module-number {
@@ -54,7 +56,8 @@
   color: var(--text-muted);
   display: inline-block; 
   height: auto;
-  background: #f1f5f9;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   padding: 4px 12px;
   border-radius: 20px;
   margin-bottom: 10px;
@@ -127,19 +130,19 @@
     left: 0;
     height: 24px;
     width: 24px;
-    background-color: #FFFFFF;
-    border: 2px solid #679b9682;
+    background-color: var(--card-bg);
+    border: 2px solid var(--input-border);
     border-radius: 50%;
 }
 
 /* On hover/checked */
 .answer-row:hover .custom-radio, .radio-container input:checked ~ .custom-radio {
-    border-color: #679B96;
+    border-color: var(--accent);
 }
 
 /* Inner Radio Dot */
 .custom-radio:after {
-    background: #679B96;
+    background: var(--accent);
     position: absolute;
     display: none;
     content: "";
@@ -155,41 +158,11 @@
     display: block;
 }
 
-/* Button Styling */
-.btn {
-  width: 100%;
-  border: 0;
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-  margin-top: auto;
-}
-
-.btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.btn:active {
-  transform: translateY(1px);
-}
-
-.btn.primary {
+.quiz-footer .sh-btn {
   margin-top: auto;
   height: 50px;
-  margin-top: 6px;
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 8px 18px rgba(88, 126, 122, 0.28);
 }
 
-.btn.primary:hover {
+.quiz-footer .sh-btn:hover {
     transform: translateY(-1px); 
-}
-
-.btn.primary:hover:not(:disabled) {
-  background: var(--accent-dark);
 }
