@@ -1,55 +1,68 @@
 <div class="carelink-container">
-  <!-- Back to Home Page-->
-  <button class="back-btn" routerLink="/home">
-    <span class="material-icons">arrow_back</span>Back to Dashboard
-  </button>
+  <div class="main-content-wrapper">
+    <!-- Header Section -->
+    <button class="back-btn" routerLink="/home">
+      <span class="material-icons">arrow_back</span> Back to Dashboard
+    </button>
 
-  <div class="carelink-page">
-    <div class="page-content">
-      <section class="connections-card">
-        <span class="material-icons">groups</span>
+    <div class="title-card">
+       <span class="material-icons">groups</span>
         <h1>Connections</h1>
-      </section>
     </div>
-  </div>
 
-  <section class="connection-grid">
-    <aside class="create-card">
+    <!-- Main Content Grid -->
+    <main class="connection-grid">
+    
       <!-- Left: Create Connection -->
-      <div class="create-connection">
-        <h3>Create Connection</h3>
-          <p>Connect with a new user:</p>
-          <p>Enter the user's ID to give them access to help manage your schedule.</p>
+      <section class="card create-card">
+        <div class="card-header">
+          <span class="material-icons">person_add</span>
+          <h2>Create Connection</h2>
+        </div>
+        <p class="instruction">Connect with a new user:</p>
+        <p class="sub-instruction">Enter the user's ID to request access to their appointments and progress.</p>
 
-          <form (ngSubmit)="createConnection()">
-          <label>
-          User ID:
-          <input type="number" [(ngModel)]="newSeniorId" name="seniorId" required>
-          </label>
-          <label>
-          First Name:
-          <input type="text" [(ngModel)]="newFirstName" name="firstName" required>
-          </label>
-          <label>
-          Last Name:
-          <input type="text" [(ngModel)]="newLastName" name="lastName" required>
-          </label>
+        <form (ngSubmit)="createConnection()" class="connection-form">
+          <div class="form-group">
+            <label>User ID:</label>
+            <input type="number" [(ngModel)]="newSeniorId" name="seniorId" placeholder="Placeholder" required>
+          </div>
+          <div class="form-group">
+            <label>First Name:</label>
+            <input type="text" [(ngModel)]="newFirstName" name="firstName" placeholder="Placeholder" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name:</label>
+            <input type="text" [(ngModel)]="newLastName" name="lastName" placeholder="Placeholder" required>
+          </div>
           <button type="submit" class="submit-btn">Submit</button>
-          </form>
-      </div>
-    </aside>
-        
+        </form>
+      </section>
 
-      
       <!-- Right: View Connections -->
-      <aside class="view-card">
-      <h3>Your Connections:</h3>
-      <div *ngFor="let conn of connections; let i = index" class="connection-item">
-          <p><strong>{{ conn.caregiverName }}</strong></p>
-          <p>{{ conn.role }}</p>
-          <p>Connected since: {{ conn.connectedSince | date }}
-          <button class="delete-btn" (click)="deleteConnection(i)">Delete</button>
-      </div>
-      </aside>
-  </section>
+      <section class="card view-card">
+        <div class="card-header">
+          <span class="material-icons">visibility</span>
+          <h2>View Connections</h2>
+        </div>
+        <p class="instruction">Your Connections:</p>
+      
+        <div class="connection-list">
+          <div *ngFor="let conn of connections; let i = index" class="connection-item">
+            <div class="conn-icon">
+              <span class="material-icons">person_outline</span>
+            </div>
+            <div class="conn-info">
+              <h3>{{ conn.caregiverName }}</h3>
+              <p>{{ conn.role }}</p>
+              <p class="date">Connected since: {{ conn.connectedSince | date:'MMM d, y' }}</p>
+            </div>
+            <button class="delete-icon-btn" (click)="deleteConnection(i)">
+              <span class="material-icons">delete_outline</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 </div>
