@@ -1,32 +1,8 @@
-.page {
-  min-height: 100%;
-  background: var(--page-bg);
-}
-
 .page-content {
-  display: flex;
-  flex-direction: column;
   align-items: stretch;
   gap: 24px;
   padding: 24px;
-  margin-top: 20px;
-  margin-left: 24px;
-  margin-right: 24px;
-  margin-bottom: 20px;
-  width: auto;
-}
-
-.back-link {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0;
-  font-size: 16px;
+  margin: 20px 24px;
 }
 
 .edu-title-box {
@@ -38,12 +14,6 @@
   width: 100%;
   min-height: 100px;
   padding: 24px 32px;
-
-  background: var(--card-bg);
-  border-radius: 10px;
-  border: 1px solid var(--card-border);
-  box-shadow: 0 8px 24px rgba(25, 35, 44, 0.10), 0 1px 3px rgba(25, 35, 44, 0.08);
-
   font-size: 40px;
   font-weight: 700;
   color: var(--text-strong);
@@ -70,27 +40,6 @@
   justify-content: flex-start;
   padding: 30px;
   gap: 10px;
-
-  background: var(--card-bg);
-  border-radius: 10px;
-  border: 1px solid var(--card-border);
-  box-shadow: 0 8px 24px rgba(25, 35, 44, 0.10), 0 1px 3px rgba(25, 35, 44, 0.08);
-}
-
-.module-number {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--text-muted);
-  display: inline-block; 
-  height: auto;
-  background: var(--input-bg);
-  border: 1px solid var(--input-border);
-  padding: 4px 12px;
-  border-radius: 20px;
-  margin-bottom: 10px;
-  margin-top: 0px;
-  justify-content: center;
-  align-items: stretch;
 }
 
 .module-title {
@@ -115,11 +64,11 @@
   overflow: hidden;
 }
 
-.module-card .sh-btn {
+.module-card .btn {
   height: 50px;
   margin-top: auto;
 }
 
-.module-card .sh-btn:hover {
-    transform: translateY(-1px); 
+.module-card .btn.primary:hover {
+  transform: translateY(-1px);
 }

@@ -1,30 +1,16 @@
-:host {
-  display: block;
-  min-height: 100%;
-}
-
 .page {
-  min-height: 100%;
   padding: 14px 20px 18px;
-  background: var(--page-bg);
   color: var(--text-strong);
   font-size: 16px;
 }
 
 .page-content {
-  width: 100%;
   max-width: 1320px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
   gap: 16px;
 }
 
 .welcome-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
-  border-radius: 14px;
   padding: 20px 24px 18px;
 }
 
@@ -64,10 +50,6 @@
   grid-template-columns: 76px minmax(0, 1fr);
   align-items: center;
   gap: 10px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
-  border-radius: 14px;
   padding: 16px 16px;
   text-decoration: none;
   color: inherit;
@@ -102,10 +84,6 @@
 }
 
 .week-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
-  border-radius: 14px;
   padding: 14px 16px 16px;
   display: flex;
   flex-direction: column;
