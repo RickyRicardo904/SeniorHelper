@@ -6,6 +6,15 @@
 
     @if (isLandingPage()) {
       <div class="landing-actions">
+        <button
+          type="button"
+          class="landing-theme-toggle"
+          (click)="toggleTheme()"
+          [attr.title]="isDarkMode() ? 'Light Mode' : 'Dark Mode'"
+          [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+        >
+          <span class="material-icons">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</span>
+        </button>
         <a routerLink="/login" class="landing-auth-button">Sign In / Register</a>
       </div>
     } @else {
