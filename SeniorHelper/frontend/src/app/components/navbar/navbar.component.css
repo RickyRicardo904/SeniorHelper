@@ -1,10 +1,14 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
 .navbar {
   background-color: var(--card-bg);
   border-bottom: 1px solid var(--card-border);
   padding: 16px 24px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 
 .navbar-content {
