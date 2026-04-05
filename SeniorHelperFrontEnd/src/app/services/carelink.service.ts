@@ -7,22 +7,22 @@ import { CareLinkModel } from '../models/carelink.model';
   providedIn: 'root',
 })
 export class CareLinkService {
-  private apiUrl = 'http://localhost:8080/api/carelink';
+  private apiUrl = 'http://localhost:8080/api/care-links';
 
   constructor(private http: HttpClient) {}
 
-  // View all connections
-  viewConnections(): Observable<CareLinkModel[]> {
-    return this.http.get<CareLinkModel[]>(`${this.apiUrl}/view`);
+  // Get all connections for a senior
+  getConnectionsBySenior(seniorId: number): Observable<CareLinkModel[]> {
+    return this.http.get<CareLinkModel[]>(`${this.apiUrl}/senior/${seniorId}`);
   }
 
   // Create a new connection
-  createConnection(caregiverId: number, seniorId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/create`, { caregiverId, seniorId });
+  createConnection(caregiverId: number, seniorId: number): Observable<CareLinkModel> {
+    return this.http.post<CareLinkModel>(`${this.apiUrl}/create`, { caregiverId, seniorId });
   }
 
   // Delete a connection
-  deleteConnection(caregiverId: number, seniorId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/delete`, { caregiverId, seniorId });
+  deleteConnection(caregiverId: number, seniorId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/delete`, { caregiverId, seniorId });
   }
 }
