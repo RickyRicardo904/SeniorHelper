@@ -17,6 +17,14 @@ public class CareLinkDto {
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String caregiverFirstName;
+
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String caregiverLastName;
+
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String caregiverUsername;
 
     @Schema(accessMode = Schema.AccessMode.READ_ONLY)
@@ -42,11 +50,14 @@ public class CareLinkDto {
 
     public CareLinkDto(Integer id,
                        Integer caregiverId, String caregiverUsername, String caregiverRole,
+                       String caregiverFirstName, String caregiverLastName,
                        Integer seniorId, String seniorUsername, String seniorRole,
                        LocalDateTime connectedSince) {
         this.id = id;
         this.caregiverId = caregiverId;
         this.caregiverUsername = caregiverUsername;
+        this.caregiverFirstName = caregiverFirstName;
+        this.caregiverLastName = caregiverLastName;
         this.caregiverRole = caregiverRole;
         this.seniorId = seniorId;
         this.seniorUsername = seniorUsername;
@@ -60,6 +71,12 @@ public class CareLinkDto {
 
     public Integer getCaregiverId() { return caregiverId; }
     public void setCaregiverId(Integer caregiverId) { this.caregiverId = caregiverId; }
+
+    public String getCaregiverFirstName() { return caregiverFirstName; }
+    public void setCaregiverFirstName(String name) { this.caregiverFirstName = name; }
+
+    public String getCaregiverLastName() { return caregiverLastName; }
+    public void setCaregiverLastName(String name) { this.caregiverLastName = name; }
 
     public String getCaregiverUsername() { return caregiverUsername; }
     public void setCaregiverUsername(String caregiverUsername) { this.caregiverUsername = caregiverUsername; }

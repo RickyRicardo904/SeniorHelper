@@ -13,6 +13,8 @@ public final class CareLinkMapper {
                 caregiver != null ? caregiver.getId() : null,
                 caregiver != null ? caregiver.getUsername() : null,
                 caregiver != null && caregiver.getRole() != null ? caregiver.getRole().name() : null,
+                caregiver != null ? caregiver.getFirstName() : null,
+                caregiver != null ? caregiver.getLastName() : null,
                 senior != null ? senior.getId() : null,
                 senior != null ? senior.getUsername() : null,
                 senior != null && senior.getRole() != null ? senior.getRole().name() : null,
