@@ -112,6 +112,7 @@
   background: rgba(103, 155, 150, 0.28);
   border: 1px solid rgba(103, 155, 150, 0.28);
   min-height: 300px;
+  object-fit: cover;
 }
 
 .team-card {
@@ -163,7 +164,8 @@
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  border: 1px solid rgba(103, 155, 150, 0.35);
+  border: 1.5px solid var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
   background: rgba(103, 155, 150, 0.22);
   color: var(--accent-dark);
   display: flex;
@@ -172,6 +174,7 @@
   font-size: 1.25rem;
   font-weight: 700;
   flex-shrink: 0;
+  object-fit: cover;
 }
 
 .member-meta h3 {
