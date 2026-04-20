@@ -1,4 +1,4 @@
-<div class="review-page sh-page-shell">
+<div class="carelink-page sh-page-shell">
   <div class="page-content sh-page-shell-content">
 
     <!-- Back Button -->
@@ -27,16 +27,19 @@
         <form class="create-form" (ngSubmit)="submitReview()">
 
           <label>
-            Name
+            Name 
             <input type="text"
                    [(ngModel)]="newReview.username"
                    name="username"
                    placeholder="Your name"
                    required />
+                  <span class="char-count" [class.near-limit]="newReview.username.length > 20">
+                    {{ newReview.username.length }}/50
+                  </span>
           </label>
 
           <label>
-            Rating (1-5)
+            Rating ( 1 - 5 Stars )
             <input type="number"
                    [(ngModel)]="newReview.rating"
                    name="rating"
@@ -51,6 +54,9 @@
                       name="comment"
                       placeholder="Write your feedback..."
                       required></textarea>
+                      <span class="char-count" [class.near-limit]="newReview.comment.length > 80">
+                        {{ newReview.comment.length }}/100
+                      </span>
           </label>
 
           <button type="submit" class="submit-btn sh-btn sh-btn--primary">

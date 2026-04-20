@@ -10,8 +10,12 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "username", length = 50)
     private String username;
+
+    @Column(name = "comment", length = 100)
     private String comment;
+
     private int rating;
 
     public Review() {
