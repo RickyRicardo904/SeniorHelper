@@ -33,7 +33,7 @@
 }
 
 .faq-link:hover {
-  color: var(--primary);
+  color: var(--accent-dark);
 }
 
 .faq-link.active {

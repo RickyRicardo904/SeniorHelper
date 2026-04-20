@@ -1,7 +1,21 @@
 <div class="faq-container">
-  <h1>Frequently Asked Questions</h1>
-  <div *ngFor="let faq of faqs" class="faq-item">
+  <div class="faq-page-content">
+
+    <div class="faq-title-box">Frequently Asked Questions</div>
+
+    <div *ngFor="let faq of faqs" class="faq-item">
+      <h3>{{ faq.question }}</h3>
+      <p [innerHTML]="getFormattedAnswer(faq.answer)"></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- <div class="faq-container">
+  <div class="faq-title-box">Frequently Asked Questions</div> -->
+  <!-- <h1>Frequently Asked Questions</h1> -->
+  <!-- <div *ngFor="let faq of faqs" class="faq-item">
     <h3>{{ faq.question }}</h3>
     <p [innerHTML]="getFormattedAnswer(faq.answer)"></p>
   </div>
-</div>
+</div> -->
