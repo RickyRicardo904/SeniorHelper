@@ -2,10 +2,16 @@ name: Build and Run SeniorHelper Application
 on:
   push:
     paths:
-      - '**/*.java'
+      - 'SeniorHelper/src/**'
+      - 'SeniorHelper/pom.xml'
+      - 'SeniorHelper/frontend/**'
+      - '.github/workflows/build-and-test.yml'
   pull_request:
     paths:
-      - '**/*.java'
+      - 'SeniorHelper/src/**'
+      - 'SeniorHelper/pom.xml'
+      - 'SeniorHelper/frontend/**'
+      - '.github/workflows/build-and-test.yml'
   workflow_dispatch: # Enables manual trigger
 jobs:
   test:
@@ -39,9 +45,24 @@ jobs:
 
       - name: Run Spring Boot Application
         run: |
-          java -jar SeniorHelper/target/*.jar &
+          java -jar SeniorHelper/target/*.jar \
+            --spring.datasource.url='jdbc:h2:mem:seniorhelper_ci;DB_CLOSE_DELAY=-1;MODE=PostgreSQL' \
+            --spring.datasource.driver-class-name=org.h2.Driver \
+            --spring.datasource.username=sa \
+            --spring.datasource.password= \
+            --spring.jpa.database-platform=org.hibernate.dialect.H2Dialect \
+            > springboot.log 2>&1 &
           echo $! > springboot.pid
+          sleep 20
+          if ! kill -0 "$(cat springboot.pid)" 2>/dev/null; then
+            cat springboot.log
+            exit 1
+          fi
         timeout-minutes: 5
 
       - name: Shutdown Spring Boot Application
-        run: kill $(cat springboot.pid)
+        if: always()
+        run: |
+          if [ -f springboot.pid ] && kill -0 "$(cat springboot.pid)" 2>/dev/null; then
+            kill "$(cat springboot.pid)"
+          fi
