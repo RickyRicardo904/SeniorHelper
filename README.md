@@ -2,10 +2,12 @@
 
 SeniorHelper is a full-stack web application designed for older adults and caregivers to stay organized, connected, and safer online. It combines practical care coordination features (shared appointments and caregiver links) with cybersecurity education (guided lessons, quizzes, and progress tracking) in a simple, high-legibility interface.
 
+![App Screenshot](./public/seniorhelperr.jpg)
+
 ## Architecture and Stack
 
 - **Architecture:** Monolithic full-stack deployment where a Spring Boot API serves both REST endpoints and the built Angular SPA.
-- **Backend:** Java 17, Spring Boot 3, Spring MVC, Spring Data JPA, Spring Security, JWT auth (custom token filter + role/permission checks), PostgreSQL runtime DB, H2 for tests, and Springdoc OpenAPI for docs.
+- **Backend:** Java 17, Spring Boot 3, Spring MVC, Spring Data JPA, Spring Security, JWT auth, and PostgreSQL.
 - **Frontend:** Angular 21 with standalone components, route guards, HTTP interceptor for bearer tokens, template/reactive forms, Cypress E2E, and Angular unit test tooling.
 - **Build/Delivery:** Maven-driven pipeline builds Angular in `frontend/`, then copies `dist` assets into Spring Boot static resources for unified deployment.
 
@@ -16,13 +18,6 @@ SeniorHelper is a full-stack web application designed for older adults and careg
 - Progress-first learning UX: module completion status, quiz scoring, and clear "continue" actions.
 - Persistent light/dark theme, mobile-responsive layouts, and consistent navigation patterns.
 - Form-first interaction with inline validation/error states and explicit labels/autocomplete hints.
-
-## Challenges and Tradeoffs
-
-- **Custom JWT revocation in memory:** Simple and effective for a course-scale app, but not ideal for multi-instance production without shared token state.
-- **Eager-loading entity relationships:** Reduced frontend complexity, but can over-fetch and impact scalability.
-- **Hardcoded local API/CORS settings:** Fast dev setup, but needs environment-based config for production.
-- **Heuristic scam detector:** Transparent and explainable for education use, but less accurate than model-based detection.
 
 ## Running the Application
 
