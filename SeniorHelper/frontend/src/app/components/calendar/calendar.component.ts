@@ -78,7 +78,12 @@ export class CalendarComponent implements OnInit, OnDestroy {
     private careLinkService: CareLinkService
   ) {
     this.appointmentForm = this.fb.group({
-      title: ['', Validators.required], notes: [''], location: [''], start: ['', Validators.required], end: ['']
+      title: ['', Validators.required],
+      notes: [''],
+      location: [''],
+      appointmentDate: ['', Validators.required],
+      startTime: ['09:00', Validators.required],
+      endTime: ['10:00']
     });
   }
 
@@ -250,8 +255,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     this.closeContextMenu();
     this.editingAppointmentId = null;
-    const startLocal = this.toDateTimeLocal(date, 9, 0);
-    const endLocal = this.toDateTimeLocal(date, 10, 0);
+    const appointmentDate = this.isoDate(date);
 
     this.selectedDateLabel = date.toLocaleDateString(undefined, {
       weekday: 'long',
@@ -265,8 +269,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
       title: '',
       notes: '',
       location: '',
-      start: startLocal,
-      end: endLocal
+      appointmentDate,
+      startTime: '09:00',
+      endTime: '10:00'
     });
     this.isAddAppointmentOpen = true;
   }
@@ -345,8 +350,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
       title: appointment.title,
       notes: appointment.notes ?? '',
       location: appointment.location ?? '',
-      start: appointment.start.slice(0, 16),
-      end: appointment.end ? appointment.end.slice(0, 16) : ''
+      appointmentDate: this.extractDateKey(appointment.start),
+      startTime: this.extractTimeValue(appointment.start),
+      endTime: appointment.end ? this.extractTimeValue(appointment.end) : ''
     });
     this.isAddAppointmentOpen = true;
   }
@@ -523,17 +529,41 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     if (this.appointmentForm.invalid) {
       this.appointmentForm.markAllAsTouched();
-      this.submitError = 'Please enter a title and start date/time before submitting.';
+      this.submitError = 'Please enter a title, date, and start time before submitting.';
       return;
     }
 
     const formValue = this.appointmentForm.value;
     const title = (formValue.title as string | null)?.trim();
-    const start = formValue.start as string | null;
-    const end = formValue.end as string | null;
+    const appointmentDate = formValue.appointmentDate as string | null;
+    const startTime = formValue.startTime as string | null;
+    const endTime = formValue.endTime as string | null;
 
-    if (!title || !start) {
-      this.submitError = 'Please enter a title and start date/time before submitting.';
+    if (!title || !appointmentDate || !startTime) {
+      this.submitError = 'Please enter a title, date, and start time before submitting.';
+      return;
+    }
+
+    const start = this.combineDateAndTime(appointmentDate, startTime);
+    let end: string | undefined;
+
+    if (!start) {
+      this.submitError = 'Please choose a valid appointment date and start time.';
+      return;
+    }
+
+    if (endTime) {
+      const parsedEnd = this.combineDateAndTime(appointmentDate, endTime);
+      if (!parsedEnd) {
+        this.submitError = 'Please choose a valid end time.';
+        return;
+      }
+
+      end = parsedEnd;
+    }
+
+    if (end && new Date(end).getTime() <= new Date(start).getTime()) {
+      this.submitError = 'End time must be after start time.';
       return;
     }
 
@@ -541,8 +571,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
       title,
       notes: (formValue.notes as string | null)?.trim() || undefined,
       location: (formValue.location as string | null)?.trim() || undefined,
-      start: start.length === 16 ? `${start}:00` : start,
-      end: end ? (end.length === 16 ? `${end}:00` : end) : undefined
+      start,
+      end
     };
 
     if (this.selectedSeniorId == null) {
@@ -626,15 +656,57 @@ export class CalendarComponent implements OnInit, OnDestroy {
     }
   }
 
-  private toDateTimeLocal(date: Date, hour: number, minute: number) {
-    const local = new Date(date);
-    local.setHours(hour, minute, 0, 0);
-    const year = local.getFullYear();
-    const month = String(local.getMonth() + 1).padStart(2, '0');
-    const day = String(local.getDate()).padStart(2, '0');
-    const h = String(local.getHours()).padStart(2, '0');
-    const m = String(local.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day}T${h}:${m}`;
+  hasInvalidAppointmentTime(): boolean {
+    const date = this.appointmentForm.get('appointmentDate')?.value as string | null;
+    const startTime = this.appointmentForm.get('startTime')?.value as string | null;
+    const endTime = this.appointmentForm.get('endTime')?.value as string | null;
+
+    if (!date || !startTime || !endTime) {
+      return false;
+    }
+
+    const start = this.combineDateAndTime(date, startTime);
+    const end = this.combineDateAndTime(date, endTime);
+    if (!start || !end) {
+      return false;
+    }
+
+    return new Date(end).getTime() <= new Date(start).getTime();
+  }
+
+  setAppointmentDuration(minutes: number): void {
+    const date = this.appointmentForm.get('appointmentDate')?.value as string | null;
+    const startTime = this.appointmentForm.get('startTime')?.value as string | null;
+    const start = date && startTime ? this.combineDateAndTime(date, startTime) : null;
+    if (!start) {
+      return;
+    }
+
+    const end = new Date(new Date(start).getTime() + minutes * 60 * 1000);
+    this.appointmentForm.patchValue({ endTime: this.toTimeInputValue(end) });
+  }
+
+  private combineDateAndTime(date: string, time: string): string | null {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) {
+      return null;
+    }
+
+    return `${date}T${time}:00`;
+  }
+
+  private extractTimeValue(value?: string | null): string {
+    if (!value) {
+      return '';
+    }
+
+    const match = value.match(/T(\d{2}:\d{2})/);
+    return match ? match[1] : '';
+  }
+
+  private toTimeInputValue(date: Date): string {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
   }
 
   private startSuccessMessageTimer() {

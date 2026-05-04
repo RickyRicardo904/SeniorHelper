@@ -132,10 +132,11 @@
     <div class="modal-date">{{ selectedDateLabel }}</div>
 
     <form [formGroup]="appointmentForm" (ngSubmit)="addAppointment()" class="appointment-form">
-      <label>
-        Title
-        <input type="text" formControlName="title" />
-      </label>
+      <section class="form-section">
+        <label>
+          Title
+          <input type="text" formControlName="title" placeholder="Doctor visit, lunch, checkup..." />
+        </label>
       @if (appointmentForm.get('title')?.touched && appointmentForm.get('title')?.invalid) {
       <div class="form-error">
         Title is required.
@@ -143,33 +144,63 @@
       }
 
       <label>
-        Notes
-        <textarea formControlName="notes" rows="4"></textarea>
+          Location
+          <input type="text" formControlName="location" placeholder="Clinic name, address, or room" />
       </label>
+      </section>
 
-      <label>
-        Location
-        <input type="text" formControlName="location" />
-      </label>
+      <section class="form-section time-section">
+        <div class="section-caption">
+          <h3>When is it?</h3>
+          <p>Pick a date, then choose the start and optional end time.</p>
+        </div>
 
-      <label>
-        Start
-        <input type="datetime-local" formControlName="start" />
-      </label>
-      @if (appointmentForm.get('start')?.touched && appointmentForm.get('start')?.invalid) {
+        <div class="appointment-time-grid">
+          <label>
+            Date
+            <input type="date" formControlName="appointmentDate" />
+          </label>
+
+          <label>
+            Start Time
+            <input type="time" formControlName="startTime" />
+          </label>
+
+          <label>
+            End Time
+            <input type="time" formControlName="endTime" />
+          </label>
+        </div>
+
+        <div class="quick-time-row" aria-label="Quick appointment lengths">
+          <span>Length</span>
+          <button type="button" class="time-chip" (click)="setAppointmentDuration(30)">30 min</button>
+          <button type="button" class="time-chip" (click)="setAppointmentDuration(60)">1 hour</button>
+          <button type="button" class="time-chip" (click)="setAppointmentDuration(120)">2 hours</button>
+        </div>
+
+        @if (appointmentForm.get('appointmentDate')?.touched && appointmentForm.get('appointmentDate')?.invalid) {
+        <div class="form-error">
+          Date is required.
+        </div>
+        }
+        @if (appointmentForm.get('startTime')?.touched && appointmentForm.get('startTime')?.invalid) {
+        <div class="form-error">
+          Start time is required.
+        </div>
+        }
+      </section>
+
+      <section class="form-section">
+        <label>
+          Notes
+          <textarea formControlName="notes" rows="4" placeholder="Anything helpful to remember before the appointment"></textarea>
+        </label>
+      </section>
+
+      @if (hasInvalidAppointmentTime()) {
       <div class="form-error">
-        Start date/time is required.
-      </div>
-      }
-
-      <label>
-        End (optional)
-        <input type="datetime-local" formControlName="end" />
-      </label>
-
-      @if (appointmentForm.value.end && appointmentForm.value.start && appointmentForm.value.end < appointmentForm.value.start) {
-      <div class="form-error">
-        End date/time must be after start date/time.
+        End time must be after start time.
       </div>
       }
 
@@ -188,7 +219,7 @@
         </button>
         }
 
-        <button type="submit" class="form-btn btn-submit" [disabled]="appointmentForm.invalid || isSubmitting || (appointmentForm.value.end && appointmentForm.value.start && appointmentForm.value.end < appointmentForm.value.start)">
+        <button type="submit" class="form-btn btn-submit" [disabled]="appointmentForm.invalid || isSubmitting || hasInvalidAppointmentTime()">
           Submit
         </button>
 

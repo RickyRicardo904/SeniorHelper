@@ -373,10 +373,10 @@
 }
 
 .appointment-modal {
-  width: min(560px, 95vw);
+  width: min(640px, 95vw);
   max-height: 90vh;
   overflow-y: auto;
-  padding: 18px;
+  padding: 20px;
   background: var(--card-bg);
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
@@ -415,22 +415,88 @@
   padding: 0;
 }
 
+.form-section {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 14px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  background: var(--input-bg);
+}
+
+.time-section {
+  gap: 14px;
+}
+
+.section-caption h3 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 1rem;
+}
+
+.section-caption p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
 .appointment-form label {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
+  margin-bottom: 0;
   font-weight: 600;
   color: var(--text-strong);
 }
 
 .appointment-form input,
 .appointment-form textarea {
+  width: 100%;
   padding: 8px;
   border: 1px solid var(--input-border);
   border-radius: 6px;
   background: var(--card-bg);
   color: var(--text-strong);
   font-size: 14px;
+}
+
+.appointment-form input:focus,
+.appointment-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+
+.appointment-time-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.quick-time-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.time-chip {
+  border: 1px solid var(--input-border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--text-strong);
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.time-chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-glow);
 }
 
 .button-row {
@@ -550,6 +616,18 @@
 
   .event-list {
     max-height: 48px;
+  }
+
+  .appointment-time-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .button-row {
+    flex-direction: column-reverse;
+  }
+
+  .form-btn {
+    width: 100%;
   }
 }
 
